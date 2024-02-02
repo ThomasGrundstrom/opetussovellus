@@ -8,5 +8,7 @@
     Password confirmation: <input type="password" name="password2" required>
     <p>
     <input type="submit" value="Register">
+    {{ errormessage }}
     </form>
-{{ errormessage }}
+
+<input type="button" onclick="location.href='/'" value="Back to login page">
