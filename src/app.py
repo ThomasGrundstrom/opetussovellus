@@ -24,6 +24,15 @@ def logout():
     del session["username"]
     return redirect("/")
 
-@app.route("/register")
-def register():
+@app.route("/register", methods=["GET"])
+def register_get():
     return render_template("register.html")
+
+@app.route("/register", methods=["POST"])
+def register_post():
+    username = request.form["username"]
+    password1 = request.form["password1"]
+    password2 = request.form["password2"]
+    # TODO: CHECK CREDENTIALS
+    session["username"] = username
+    return redirect("/")
