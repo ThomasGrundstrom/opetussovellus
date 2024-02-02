@@ -1,6 +1,22 @@
-<title>Opetussovellus</title>
-<h1>Etusivu</h1>
-Tervetuloa!
+<title>Study app</title>
+<h1>Front page</h1>
+
+{% if session.username %}
+Welcome to the study app, {{ session.username }}!
+<br><br>
+<input type="button" onclick="location.href='/logout'" value="Log out">
+
+{% else %}
+<form action="/login" method="POST">
+Username: <input type="text" name="username" required>
 <br>
+Password: <input type="text" name="password" required>
 <br>
-Tämä on opetussovellus.
+<input type="submit" value="Log in">
+</form>
+<br>
+
+Don't have an account?
+<input type="button" onclick="location.href='/register'" value="Register new account">
+
+{% endif %}
