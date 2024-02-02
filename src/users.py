@@ -1,14 +1,14 @@
 from sqlalchemy.sql import text
 from werkzeug.security import check_password_hash, generate_password_hash
 
-def register(db, username, password):
+def register(db, username, password, teacher):
 
     if find_existing_user(db, username):
         return False
     
     hash_value = generate_password_hash(password)
-    sql = text("INSERT INTO users (username, password) VALUES (:username, :password)")
-    db.session.execute(sql, {"username":username, "password":hash_value})
+    sql = text("INSERT INTO users (username, password, teacher) VALUES (:username, :password, :teacher)")
+    db.session.execute(sql, {"username":username, "password":hash_value, "teacher":teacher})
     db.session.commit()
 
     return True

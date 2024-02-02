@@ -37,11 +37,15 @@ def register_post():
     username = request.form["username"]
     password1 = request.form["password1"]
     password2 = request.form["password2"]
+    if request.form.get(str("teacher")) == "on":
+        teacher = 1
+    else:
+        teacher = 0
 
     if password1 != password2:
         return render_template("register.html", errormessage = "Password and password confirmation do not match.")
     
-    if users.register(db, username, password1):
+    if users.register(db, username, password1, teacher):
         session["username"] = username
         return redirect("/")
     
