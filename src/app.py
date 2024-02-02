@@ -16,9 +16,12 @@ def index():
 def login():
     username = request.form["username"]
     password = request.form["password"]
-    # TODO: CHECK USERNAME AND PASSWORD
-    session["username"] = username
-    return redirect("/")
+    
+    if users.login(db, username, password):
+        session["username"] = username
+        return redirect("/")
+    
+    return render_template("index.html", errormessage = "Wrong username or password.")
 
 @app.route("/logout")
 def logout():

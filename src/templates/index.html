@@ -13,12 +13,10 @@ Welcome to the study app, {{ session.username }}!
     Password: <input type="text" name="password" required>
     <br>
     <input type="submit" value="Log in">
+    {{ errormessage }}
     </form>
-<br>
 
 Don't have an account?
 <input type="button" onclick="location.href='/register'" value="Register new account">
 
 {% endif %}
-<br>
-{{ errormessage }}
