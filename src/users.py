@@ -25,14 +25,12 @@ def find_existing_user(db, username):
 
 def login(db, username, password):
 
-    if not find_existing_user(db, username):
-        return False
-    
-    sql = text("SELECT id, password FROM users WHERE username=:username")
-    result = db.session.execute(sql, {"username":username})
-    user = result.fetchone()
+    if find_existing_user(db, username):
+        sql = text("SELECT id, password FROM users WHERE username=:username")
+        result = db.session.execute(sql, {"username":username})
+        user = result.fetchone()
 
-    if not check_password_hash(user.password, password):
-        return False
+        if check_password_hash(user.password, password):
+            return True
     
-    return True
+    return False
