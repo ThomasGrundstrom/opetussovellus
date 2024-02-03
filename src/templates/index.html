@@ -5,6 +5,22 @@
 Welcome to the study app, {{ session.username }}!
 <br><br>
 <input type="button" onclick="location.href='/logout'" value="Log out">
+<br><br>
+
+{% if session.teacher %}
+<a href="/new">New exam</a>
+<br>
+{% endif %}
+
+<hr>
+{% for exam in exams %}
+Course: {{ exam.course }}
+<br>
+Topic: {{ exam.topic }}
+<br>
+<a href="/exam/{{ exam.id }}">Go to exam</a> <br>
+<hr>
+{% endfor %}
 
 {% else %}
 <form action="/login" method="POST">

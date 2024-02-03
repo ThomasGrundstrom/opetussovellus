@@ -1,0 +1,11 @@
+<h1>Create new exam</h1>
+
+<form action="/new" method="POST">
+    <p>Course: <br>
+    <input type="text" name="course"></p>
+    <p>Topic: <br>
+    <input type="text" name="topic"></p>
+    <br>
+    <input type="submit" value="Create exam">
+    {{ errormessage }}
+</form>

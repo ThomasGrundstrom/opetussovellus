@@ -34,3 +34,12 @@ def login(db, username, password):
             return True
     
     return False
+
+def is_teacher(db, username):
+    sql = text("SELECT teacher FROM users WHERE username=:username")
+    result = db.session.execute(sql, {"username":username})
+
+    if result == 1:
+        return True
+    
+    return False

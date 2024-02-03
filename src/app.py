@@ -1,4 +1,5 @@
 import users
+import exams
 from flask import Flask, render_template, redirect, request, session
 from flask_sqlalchemy import SQLAlchemy
 from os import getenv
@@ -10,7 +11,8 @@ app.secret_key = getenv("SECRET_KEY")
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    allexams = exams.display_exams(db)
+    return render_template("index.html", exams=allexams)
 
 @app.route("/login",methods=["POST"])
 def login():
@@ -19,6 +21,8 @@ def login():
     
     if users.login(db, username, password):
         session["username"] = username
+        if users.is_teacher(db, username):
+            session["teacher"] = 1 
         return redirect("/")
     
     return render_template("index.html", errormessage = "Wrong username or password.")
@@ -47,6 +51,36 @@ def register_post():
     
     if users.register(db, username, password1, teacher):
         session["username"] = username
+        if teacher == 1:
+            session["teacher"] = teacher
         return redirect("/")
     
     return render_template("register.html", errormessage = "Username already in use.")
+
+@app.route("/new", methods=["GET"])
+def new_get():
+    return render_template("new.html")
+
+@app.route("/new", methods=["POST"])
+def new_post():
+    course = request.form["course"]
+    topic = request.form["topic"]
+
+    if exams.add_exam(db, course, topic):
+        exam_id = exams.get_exam_id(db, topic)
+        session["exam"] = exam_id[0]
+        return render_template("add.html", exam_id=exam_id)
+    
+    return render_template("new.html", errormessage = "An exam with that topic already exists. Please change topic.")
+
+@app.route("/add", methods=["GET"])
+def add_get():
+    return render_template("add.html")
+
+@app.route("/add", methods=["POST"])
+def add_post():
+    exam_id = session["exam"]
+    question = request.form["question"]
+    answer = request.form["answer"]
+    exams.add_question_to_exam(db, exam_id, question, answer)
+    return redirect("/add")
