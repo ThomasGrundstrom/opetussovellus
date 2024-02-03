@@ -1,17 +1,17 @@
 <title>Registration</title>
 
 <form action="/register" method="POST">
-    Username: <input type="text" name="username" required>
-    <p>
-    Password: <input type="password" name="password1" required>
-    <p>
-    Password confirmation: <input type="password" name="password2" required>
-    <p>
-    Give me teacher privileges:
-    <input type="checkbox" name="teacher">
-    <p>
-    <input type="submit" value="Register">
-    {{ errormessage }}
-    </form>
+Username: <input type="text" name="username" required>
+<p>
+Password: <input type="password" name="password1" required>
+<p>
+Password confirmation: <input type="password" name="password2" required>
+<p>
+Give me teacher privileges:
+<input type="checkbox" name="teacher">
+<p>
+<input type="submit" value="Register">
+{{ errormessage }}
+</form>
 
 <input type="button" onclick="location.href='/'" value="Back to login page">
