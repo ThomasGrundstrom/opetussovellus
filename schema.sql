@@ -4,3 +4,22 @@ CREATE TABLE users (
     password TEXT,
     teacher INTEGER
 );
+
+CREATE TABLE exams (
+    id SERIAL PRIMARY KEY,
+    course TEXT,
+    topic TEXT
+);
+
+CREATE TABLE questions (
+    id SERIAL PRIMARY KEY,
+    exam_id INTEGER REFERENCES exams,
+    question TEXT,
+    answer TEXT
+);
+
+CREATE TABLE answers (
+    id SERIAL PRIMARY KEY,
+    question_id INTEGER REFERENCES questions,
+    answer TEXT
+);
