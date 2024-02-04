@@ -6,5 +6,5 @@ opettajat voivat luoda yksinkertaisia tenttejä tukeakseen opiskelijoiden oppimi
 
 ## Dokumentaatio
 
-[Määrittelydokumentti](https://github.com/ThomasGrundstrom/opetussovellus/blob/main/dokumentaatio/maarittelydokumentti.md)
-[Käyttöohje](https://github.com/ThomasGrundstrom/opetussovellus/blob/main/dokumentaatio/kayttoohje.md)
+- [Määrittelydokumentti](https://github.com/ThomasGrundstrom/opetussovellus/blob/main/dokumentaatio/maarittelydokumentti.md)
+- [Käyttöohje](https://github.com/ThomasGrundstrom/opetussovellus/blob/main/dokumentaatio/kayttoohje.md)
