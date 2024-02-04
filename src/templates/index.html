@@ -7,12 +7,6 @@ Welcome to the study app, {{ session.username }}!
 <input type="button" onclick="location.href='/logout'" value="Log out">
 <br><br>
 
-{% if session.teacher %}
-<a href="/new">New exam</a>
-<br>
-{% endif %}
-
-<hr>
 {% for exam in exams %}
 Course: {{ exam.course }}
 <br>

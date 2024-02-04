@@ -22,7 +22,7 @@ def login():
     if users.login(db, username, password):
         session["username"] = username
         if users.is_teacher(db, username):
-            session["teacher"] = 1 
+            return redirect("/teacherindex")
         return redirect("/")
     
     return render_template("index.html", errormessage = "Wrong username or password.")
@@ -52,7 +52,7 @@ def register_post():
     if users.register(db, username, password1, teacher):
         session["username"] = username
         if teacher == 1:
-            session["teacher"] = teacher
+            return redirect("/teacherindex")
         return redirect("/")
     
     return render_template("register.html", errormessage = "Username already in use.")
@@ -84,3 +84,8 @@ def add_post():
     answer = request.form["answer"]
     exams.add_question_to_exam(db, exam_id, question, answer)
     return redirect("/add")
+
+@app.route("/teacherindex")
+def teacherindex():
+    allexams = exams.display_exams(db)
+    return render_template("teacherindex.html", exams=allexams)

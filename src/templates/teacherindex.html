@@ -1,0 +1,20 @@
+<title>Study app</title>
+<h1>Home page</h1>
+
+Welcome to the study app, {{ session.username }}!
+<br><br>
+<input type="button" onclick="location.href='/logout'" value="Log out">
+<br><br>
+
+<a href="/new">New exam</a>
+<br>
+
+<hr>
+{% for exam in exams %}
+Course: {{ exam.course }}
+<br>
+Topic: {{ exam.topic }}
+<br>
+<a href="/exam/{{ exam.id }}">Go to exam</a> <br>
+<hr>
+{% endfor %}

@@ -1,7 +1,7 @@
 from sqlalchemy.sql import text
 from werkzeug.security import check_password_hash, generate_password_hash
 
-def register(db, username, password, teacher):
+def register(db, username, password, teacher=0):
 
     if find_existing_user(db, username):
         return False
@@ -36,10 +36,10 @@ def login(db, username, password):
     return False
 
 def is_teacher(db, username):
-    sql = text("SELECT teacher FROM users WHERE username=:username")
-    result = db.session.execute(sql, {"username":username})
+    sql = text("SELECT teacher FROM users WHERE username=:username AND teacher=1")
+    result = db.session.execute(sql, {"username":username}).fetchone()
 
-    if result == 1:
+    if result:
         return True
     
     return False
