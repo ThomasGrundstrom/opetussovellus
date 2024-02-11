@@ -1,0 +1,12 @@
+(This functionality is not yet complete)
+<br>
+{{ exam_course }}
+<br>
+<h1>{{ exam_topic }}</h1>
+<br>
+<hr>
+{% for question in exam_questions %}
+{{ question.question }}
+<br>
+<hr>
+{% endfor %}

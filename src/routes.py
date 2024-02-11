@@ -62,7 +62,7 @@ def new_post():
     if exams.add_exam(db, course, topic):
         exam_id = exams.get_exam_id(db, topic)
         session["exam"] = exam_id[0]
-        return render_template("add.html", exam_id=exam_id)
+        return redirect("/add")
     
     return render_template("new.html", errormessage = "An exam with that topic already exists. Please change topic.")
 
@@ -77,3 +77,10 @@ def add_post():
     answer = request.form["answer"]
     exams.add_question_to_exam(db, exam_id, question, answer)
     return redirect("/add")
+
+@app.route("/exam/<int:id>")
+def exam(id):
+    course = exams.get_exam_course(db, id)
+    topic = exams.get_exam_topic(db, id)
+    questions = exams.get_exam_questions(db, id)
+    return render_template("exam.html", id=id, exam_course=course, exam_topic=topic, exam_questions=questions)
