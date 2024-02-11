@@ -1,11 +1,17 @@
-<title>Study app</title>
-<h1>Home page</h1>
+{% extends "layout.html" %}
+{% block title %}Home page{% endblock %}
 
+{% block content %}
 {% if session.username %}
+<h2>Front page</h2>
 Welcome to the study app, {{ session.username }}!
 <br><br>
 <input type="button" onclick="location.href='/logout'" value="Log out">
 <br><br>
+
+{% if is_teacher %}
+<a href="/new">New exam</a>
+{% endif %}
 
 <hr>
 {% for exam in exams %}
@@ -18,6 +24,7 @@ Topic: {{ exam.topic }}
 {% endfor %}
 
 {% else %}
+<h2>Login</h2>
 <form action="/login" method="POST">
     Username: <input type="text" name="username" required>
     <br>
@@ -31,3 +38,4 @@ Don't have an account?
 <input type="button" onclick="location.href='/register'" value="Register new account">
 
 {% endif %}
+{% endblock %}

@@ -1,5 +1,6 @@
 from sqlalchemy.sql import text
 from werkzeug.security import check_password_hash, generate_password_hash
+from flask import session
 
 def register(db, username, password, teacher=0):
 
@@ -35,7 +36,8 @@ def login(db, username, password):
     
     return False
 
-def is_teacher(db, username):
+def is_teacher(db):
+    username = session.get("username")
     sql = text("SELECT teacher FROM users WHERE username=:username AND teacher=1")
     result = db.session.execute(sql, {"username":username}).fetchone()
 

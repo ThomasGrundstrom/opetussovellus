@@ -1,4 +1,8 @@
-<h1>Create new exam</h1>
+{% extends "layout.html" %}
+{% block title %}New exam page{% endblock %}
+
+{% block content %}
+<h2>Create new exam</h2>
 
 <form action="/new" method="POST">
     <p>Course: <br>
@@ -9,3 +13,5 @@
     <input type="submit" value="Create exam">
     {{ errormessage }}
 </form>
+
+{% endblock %}

@@ -7,8 +7,9 @@ from flask import render_template, redirect, request, session
 
 @app.route("/")
 def index():
+    teacher = users.is_teacher(db)
     allexams = exams.display_exams(db)
-    return render_template("index.html", exams=allexams)
+    return render_template("index.html", exams=allexams, is_teacher=teacher)
 
 @app.route("/login",methods=["POST"])
 def login():
@@ -17,8 +18,6 @@ def login():
     
     if users.login(db, username, password):
         session["username"] = username
-        if users.is_teacher(db, username):
-            return redirect("/teacherindex")
         return redirect("/")
     
     return render_template("index.html", errormessage = "Wrong username or password.")
@@ -47,8 +46,6 @@ def register_post():
     
     if users.register(db, username, password1, teacher):
         session["username"] = username
-        if teacher == 1:
-            return redirect("/teacherindex")
         return redirect("/")
     
     return render_template("register.html", errormessage = "Username already in use.")
@@ -80,8 +77,3 @@ def add_post():
     answer = request.form["answer"]
     exams.add_question_to_exam(db, exam_id, question, answer)
     return redirect("/add")
-
-@app.route("/teacherindex")
-def teacherindex():
-    allexams = exams.display_exams(db)
-    return render_template("teacherindex.html", exams=allexams)
