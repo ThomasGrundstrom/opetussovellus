@@ -15,7 +15,8 @@ CREATE TABLE questions (
     id SERIAL PRIMARY KEY,
     exam_id INTEGER REFERENCES exams,
     question TEXT,
-    answer TEXT
+    answer TEXT, 
+    done INTEGER
 );
 
 CREATE TABLE answers (

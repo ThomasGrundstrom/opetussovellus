@@ -75,12 +75,26 @@ def add_post():
     exam_id = session["exam"]
     question = request.form["question"]
     answer = request.form["answer"]
-    exams.add_question_to_exam(db, exam_id, question, answer)
+    exams.add_question_to_exam(db, exam_id, question, answer, done=0)
     return redirect("/add")
 
 @app.route("/exam/<int:id>")
 def exam(id):
     course = exams.get_exam_course(db, id)
     topic = exams.get_exam_topic(db, id)
-    questions = exams.get_exam_questions(db, id)
-    return render_template("exam.html", id=id, exam_course=course, exam_topic=topic, exam_questions=questions)
+    questions = exams.get_exam_questions(db, id, done=0)
+
+    if len(questions) != 0:
+        first_question = questions[0]
+        return render_template("exam.html", exam_course=course, exam_topic=topic, question=first_question)
+    
+    return "Exam complete!"
+
+@app.route("/question/<int:id>")
+def question(id):
+    question = exams.get_question(db, id)
+    return render_template("question.html", question=question)
+
+@app.route("/question/answer", methods=["POST"])
+def answer_post():
+    return "Question answered successfully!"

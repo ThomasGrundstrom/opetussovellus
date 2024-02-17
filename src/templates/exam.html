@@ -1,12 +1,10 @@
-(This functionality is not yet complete)
-<br>
 {{ exam_course }}
 <br>
 <h1>{{ exam_topic }}</h1>
 <br>
-<hr>
-{% for question in exam_questions %}
-{{ question.question }}
+Welcome to the exam!
 <br>
-<hr>
-{% endfor %}
+<br>
+<a href="/question/{{ question.id }}">Start exam</a>
+<br>
+<input type="button" onclick="location.href='/'" value="Back to home page">
