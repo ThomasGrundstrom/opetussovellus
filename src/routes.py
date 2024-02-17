@@ -60,7 +60,7 @@ def new_post():
     topic = request.form["topic"]
 
     if exams.add_exam(db, course, topic):
-        exam_id = exams.get_exam_id(db, topic)
+        exam_id = exams.get_exam_id_by_topic(db, topic)
         session["exam"] = exam_id[0]
         return redirect("/add")
     
@@ -97,4 +97,15 @@ def question(id):
 
 @app.route("/question/answer", methods=["POST"])
 def answer_post():
-    return "Question answered successfully!"
+    answer = request.form["answer"]
+    question = request.form["question"]
+    exams.mark_question_as_done(db, question)
+    right_answer = exams.get_right_answer(db, question)
+    exam_id = exams.get_exam_id_by_question(db, question)
+    remaining_questions = exams.get_exam_questions(db, exam_id, done=0)
+
+    if len(remaining_questions) != 0:
+        next_question = remaining_questions[0]
+        return render_template("answer.html", answer=answer, right_answer=right_answer, next_question=next_question)
+    
+    return "Exam complete!"

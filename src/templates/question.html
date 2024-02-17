@@ -1,4 +1,3 @@
-(Not yet complete)
 <br>
 <br>
 {{ question }}
@@ -7,5 +6,9 @@
 <form action="answer" method="POST">
     <textarea id="answer" name="answer" rows="4" cols="50"></textarea>
     <br>
-    <input type="submit" value="Submit">
+    <input type="submit" value="Submit answer">
+    <input type="hidden" name="question" value="{{ question }}">
 </form>
+<br>
+<br>
+<input type="button" onclick="location.href='/'" value="Back to main page">

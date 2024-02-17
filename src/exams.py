@@ -14,7 +14,7 @@ def add_exam(db, course, topic):
     db.session.commit()
     return True
 
-def get_exam_id(db, topic):
+def get_exam_id_by_topic(db, topic):
     sql = text("SELECT id FROM exams WHERE topic=:topic")
     result = db.session.execute(sql, {"topic":topic})
     return result.fetchone()
@@ -43,3 +43,18 @@ def get_question(db, id):
     sql = text("SELECT question FROM questions WHERE id=:id")
     result = db.session.execute(sql, {"id":id})
     return result.fetchone()[0]
+
+def get_right_answer(db, question):
+    sql = text("SELECT answer FROM questions WHERE question=:question")
+    result = db.session.execute(sql, {"question":question})
+    return result.fetchone()[0]
+
+def get_exam_id_by_question(db, question):
+    sql = text("SELECT exam_id FROM questions WHERE question=:question")
+    result = db.session.execute(sql, {"question":question})
+    return result.fetchone()[0]
+
+def mark_question_as_done(db, question):
+    sql = text("UPDATE questions SET done = 1 WHERE question=:question")
+    db.session.execute(sql, {"question":question})
+    db.session.commit()
