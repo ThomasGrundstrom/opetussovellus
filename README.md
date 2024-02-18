@@ -12,8 +12,10 @@ opettajat voivat luoda yksinkertaisia tenttejä tukeakseen opiskelijoiden oppimi
 
 ## Sovelluksen nykyinen tilanne
 
-Sovellukseen voi rekisteröidä käyttäjän ja kirjautua sisään olemassaolevalla käyttäjätunnuksella ja salasanalla. 
-Rekisteröitymisen yhteydessä voi valita olevansa opettaja. Jos käyttäjä ei ole opettaja, hän näkee kirjautumisen jälkeen etusivulla 
-kaikki tietokannassa olevat tentit ja pääsee suorittamaan tenttejä klikkaamalla "Go to exam"-tekstiä. Kun tentissä vastaa kysymykseen, 
-tulee näkyviin sivu, jolla voi verrata omaa vastausta mallivastaukseen. Tentin saa suoritettua vastaamalla kaikkiin kysymyksiin. 
-Opettajat voivat kaiken edellä mainitun lisäksi luoda uusia tenttejä. Toistaiseksi tenttiin voi lisätä vain kysymyksiä, joihin vastataan kirjoittamalla tekstiä vastauslaatikkoon.
+- Sovellukseen voi rekisteröidä käyttäjän ja kirjautua sisään olemassaolevalla käyttäjätunnuksella ja salasanalla. 
+- Rekisteröitymisen yhteydessä voi valita olevansa opettaja.
+- Jos käyttäjä ei ole opettaja, hän näkee kirjautumisen jälkeen etusivulla kaikki tietokannassa olevat tentit ja pääsee suorittamaan tenttejä klikkaamalla "Go to exam"-tekstiä.
+- Kun tentissä vastaa kysymykseen, tulee näkyviin sivu, jolla voi verrata omaa vastausta mallivastaukseen.
+- Tentin saa suoritettua vastaamalla kaikkiin kysymyksiin. 
+- Opettajat voivat kaiken edellä mainitun lisäksi luoda uusia tenttejä.
+- Toistaiseksi tenttiin voi lisätä vain kysymyksiä, joihin vastataan kirjoittamalla tekstiä vastauslaatikkoon.
