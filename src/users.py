@@ -45,3 +45,8 @@ def is_teacher(db):
         return True
     
     return False
+
+def get_user_id(db, username):
+    sql = text("SELECT id FROM users WHERE username=:username")
+    result = db.session.execute(sql, {"username":username})
+    return result.fetchone()[0]

@@ -19,9 +19,9 @@ def get_exam_id_by_topic(db, topic):
     result = db.session.execute(sql, {"topic":topic})
     return result.fetchone()
 
-def add_question_to_exam(db, exam_id, question, answer, done):
-    sql = text("INSERT INTO questions (exam_id, question, done) VALUES (:exam_id, :question, :done)")
-    db.session.execute(sql, {"exam_id":exam_id, "question":question, "done":done})
+def add_question_to_exam(db, exam_id, question, answer):
+    sql = text("INSERT INTO questions (exam_id, question) VALUES (:exam_id, :question)")
+    db.session.execute(sql, {"exam_id":exam_id, "question":question})
     db.session.commit()
     sql = text("SELECT id FROM questions WHERE question=:question")
     result = db.session.execute(sql, {"question":question})
@@ -30,9 +30,9 @@ def add_question_to_exam(db, exam_id, question, answer, done):
     db.session.execute(sql, {"question_id":question_id, "right_answer":answer})
     db.session.commit()
 
-def get_exam_questions(db, exam_id, done):
-    sql = text("SELECT id, question FROM questions WHERE exam_id=:exam_id AND done=:done")
-    result = db.session.execute(sql, {"exam_id":exam_id, "done":done})
+def get_exam_questions(db, exam_id):
+    sql = text("SELECT id, question FROM questions WHERE exam_id=:exam_id")
+    result = db.session.execute(sql, {"exam_id":exam_id})
     return result.fetchall()
 
 def get_exam_course(db, exam_id):
@@ -60,10 +60,25 @@ def get_exam_id_by_question(db, question):
     result = db.session.execute(sql, {"question":question})
     return result.fetchone()[0]
 
-def answer_question(db, question_id, answer):
-    sql = text("INSERT INTO answers (question_id, answer) VALUES (:question_id, :answer)")
-    db.session.execute(sql, {"question_id":question_id, "answer":answer})
+def answer_question(db, question_id, user_id, answer):
+    sql = text("INSERT INTO answers (question_id, user_id, answer) VALUES (:question_id, :user_id, :answer)")
+    db.session.execute(sql, {"question_id":question_id, "user_id":user_id, "answer":answer})
     db.session.commit()
-    sql = text("UPDATE questions SET done = 1 WHERE id=:question_id")
-    db.session.execute(sql, {"question_id":question_id})
-    db.session.commit()
+
+def get_next_question(db, exam_id, user_id):
+    allquestions = get_exam_questions(db, exam_id)
+    sql = text("SELECT question_id FROM answers WHERE user_id=:user_id")
+    answers = db.session.execute(sql, {"user_id":user_id}).fetchall()
+    questions = []
+    unanswered = True
+    if len(allquestions) != 0 and len(answers) != 0:
+        for i in range(len(allquestions)):
+            for j in range(len(answers)):
+                if allquestions[i][0] == answers[j][0]:
+                    unanswered = False
+            if unanswered:
+                questions.append(allquestions[i])
+            unanswered = True
+    if len(questions) != 0:
+        return questions[0]
+    return None

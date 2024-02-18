@@ -4,4 +4,8 @@ Your answer: {{ answer }}
 Right answer: {{ right_answer }}
 <br>
 <br>
+{% if next_question %}
 <a href="/question/{{ next_question.id }}">Next question</a>
+{% else %}
+<a href="/">Finish exam</a>
+{% endif %}
