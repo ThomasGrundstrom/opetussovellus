@@ -17,23 +17,21 @@ DATABASE_URL=(tietokannan paikallinen osoite)
 **Kun .env -tiedosto on luotu, pysy edelleen src-kansiossa ja syötä seuraavat komennot:**
 
 
-$ python3 -m venv venv
+`python3 -m venv venv`
 
-$ source venv/bin/activate
+`source venv/bin/activate`
 
-$ pip install -r ../requirements.txt
+`pip install -r ../requirements.txt`
 
-
-(Syötä kaikki komennot ilman alussa olevaa $-merkkiä ja välilyöntiä.)
 
 **Suorita schema.sql komennolla:**
 
 
-$ psql < schema.sql
+`psql < schema.sql`
 
 
 **Käynnistä sovellus komennolla:**
 
 
-$ flask run
+`flask run`
 
