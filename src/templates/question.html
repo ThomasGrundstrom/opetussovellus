@@ -1,13 +1,14 @@
 <br>
 <br>
-{{ question }}
+{{ question.question }}
 <br>
 <br>
 <form action="answer" method="POST">
     <textarea id="answer" name="answer" rows="4" cols="50"></textarea>
     <br>
     <input type="submit" value="Submit answer">
-    <input type="hidden" name="question" value="{{ question }}">
+    <input type="hidden" name="question" value="{{ question.question }}">
+    <input type="hidden" name="question_id" value="{{ question.id }}">
 </form>
 <br>
 <br>

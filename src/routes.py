@@ -99,8 +99,9 @@ def question(id):
 def answer_post():
     answer = request.form["answer"]
     question = request.form["question"]
-    exams.mark_question_as_done(db, question)
-    right_answer = exams.get_right_answer(db, question)
+    question_id = request.form["question_id"]
+    exams.answer_question(db, question_id, answer)
+    right_answer = exams.get_right_answer(db, question_id)
     exam_id = exams.get_exam_id_by_question(db, question)
     remaining_questions = exams.get_exam_questions(db, exam_id, done=0)
 
