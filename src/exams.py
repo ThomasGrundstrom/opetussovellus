@@ -23,8 +23,8 @@ def add_question_to_exam(db, exam_id, question, answer):
     sql = text("INSERT INTO questions (exam_id, question) VALUES (:exam_id, :question)")
     db.session.execute(sql, {"exam_id":exam_id, "question":question})
     db.session.commit()
-    sql = text("SELECT id FROM questions WHERE question=:question")
-    result = db.session.execute(sql, {"question":question})
+    sql = text("SELECT MAX(id) FROM questions")
+    result = db.session.execute(sql)
     question_id = result.fetchone()[0]
     sql = text("INSERT INTO right_answers (question_id, right_answer) VALUES (:question_id, :right_answer)")
     db.session.execute(sql, {"question_id":question_id, "right_answer":answer})
