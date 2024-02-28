@@ -71,14 +71,13 @@ def get_next_question(db, exam_id, user_id):
     answers = db.session.execute(sql, {"user_id":user_id}).fetchall()
     questions = []
     unanswered = True
-    if len(allquestions) != 0 and len(answers) != 0:
-        for i in range(len(allquestions)):
-            for j in range(len(answers)):
-                if allquestions[i][0] == answers[j][0]:
-                    unanswered = False
-            if unanswered:
-                questions.append(allquestions[i])
-            unanswered = True
+    for i in range(len(allquestions)):
+        for j in range(len(answers)):
+            if allquestions[i][0] == answers[j][0]:
+                unanswered = False
+        if unanswered:
+            questions.append(allquestions[i])
+        unanswered = True
     if len(questions) != 0:
         return questions[0]
     return None
