@@ -88,23 +88,22 @@ def exam(id):
     first_question = exams.get_next_question(db, id, session["user_id"])
 
     if first_question:
-        return render_template("exam.html", exam_course=course, exam_topic=topic, question=first_question)
+        return render_template("exam.html", exam_course=course, exam_topic=topic, question=first_question, exam_id=id)
     
     return "Exam complete!"
 
-@app.route("/question/<int:id>")
-def question(id):
+@app.route("/question/<int:exam_id>/<int:id>")
+def question(exam_id, id):
     question = exams.get_question(db, id)
-    return render_template("question.html", question=question)
+    return render_template("question.html", question=question, exam_id=exam_id)
 
-@app.route("/question/answer", methods=["POST"])
-def answer_post():
+@app.route("/question/<int:exam_id>/answer", methods=["POST"])
+def answer_post(exam_id):
     answer = request.form["answer"]
     question = request.form["question"]
     question_id = request.form["question_id"]
     exams.answer_question(db, question_id, session["user_id"], answer)
     right_answer = exams.get_right_answer(db, question_id)
-    exam_id = exams.get_exam_id_by_question(db, question)
     next_question = exams.get_next_question(db, exam_id, session["user_id"])
 
-    return render_template("answer.html", answer=answer, right_answer=right_answer, next_question=next_question)
+    return render_template("answer.html", answer=answer, right_answer=right_answer, next_question=next_question, exam_id=exam_id)
