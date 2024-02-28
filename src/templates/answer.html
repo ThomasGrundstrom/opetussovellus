@@ -1,3 +1,7 @@
+{% extends "layout.html" %}
+{% block title %}Answer page{% endblock %}
+
+{% block content %}
 Your answer: {{ answer }}
 <br>
 <br>
@@ -9,3 +13,4 @@ Right answer: {{ right_answer }}
 {% else %}
 <a href="/">Finish exam</a>
 {% endif %}
+{% endblock %}
