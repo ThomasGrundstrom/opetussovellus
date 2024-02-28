@@ -12,6 +12,7 @@
     <input type="hidden" name="question" value="{{ question.question }}">
     <input type="hidden" name="question_id" value="{{ question.id }}">
     <input type="hidden" name="exam_id" value="{{ exam_id }}">
+    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
 </form>
 <br>
 {% endblock %}

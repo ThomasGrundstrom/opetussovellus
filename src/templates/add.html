@@ -11,6 +11,7 @@
     <input type="text" name="answer" required></p>
     <br>
     <input type="submit" value="Create question">
+    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
 </form>
 <br>
 <input type="button" onclick="location.href='/'" value="Submit exam">

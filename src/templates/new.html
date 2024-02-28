@@ -11,6 +11,7 @@
     <input type="text" name="topic"></p>
     <br>
     <input type="submit" value="Create exam">
+    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
     {{ errormessage }}
 </form>
 

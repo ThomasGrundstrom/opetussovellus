@@ -1,3 +1,4 @@
+import secrets
 import users
 import exams
 from app import app
@@ -19,6 +20,7 @@ def login():
     if users.login(db, username, password):
         session["username"] = username
         session["user_id"] = users.get_user_id(db, username)
+        session["csrf_token"] = secrets.token_hex(16)
         return redirect("/")
     
     return render_template("index.html", errormessage = "Wrong username or password.")
@@ -49,6 +51,7 @@ def register_post():
     if users.register(db, username, password1, teacher):
         session["username"] = username
         session["user_id"] = users.get_user_id(db, username)
+        session["csrf_token"] = secrets.token_hex(16)
         return redirect("/")
     
     return render_template("register.html", errormessage = "Username already in use.")
@@ -59,6 +62,8 @@ def new_get():
 
 @app.route("/new", methods=["POST"])
 def new_post():
+    if session["csrf_token"] != request.form["csrf_token"]:
+        abort(403)
     course = request.form["course"]
     topic = request.form["topic"]
 
@@ -75,6 +80,8 @@ def add_get():
 
 @app.route("/add", methods=["POST"])
 def add_post():
+    if session["csrf_token"] != request.form["csrf_token"]:
+        abort(403)
     exam_id = session["exam"]
     question = request.form["question"]
     answer = request.form["answer"]
@@ -99,6 +106,8 @@ def question(exam_id, id):
 
 @app.route("/question/<int:exam_id>/answer", methods=["POST"])
 def answer_post(exam_id):
+    if session["csrf_token"] != request.form["csrf_token"]:
+        abort(403)
     answer = request.form["answer"]
     question = request.form["question"]
     question_id = request.form["question_id"]
