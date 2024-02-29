@@ -2,6 +2,7 @@
 {% block title %}Exam page{% endblock %}
 
 {% block content %}
+{% if question %}
 {{ exam_course }}
 <br>
 <h1>{{ exam_topic }}</h1>
@@ -10,4 +11,10 @@ Welcome to the exam!
 <br>
 <br>
 <a href="/question/{{ exam_id }}/{{ question.id }}">Start exam</a>
+{% else %}
+Exam complete!
+<br>
+<br>
+Good job!
+{% endif %}
 {% endblock %}

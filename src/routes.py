@@ -93,11 +93,8 @@ def exam(id):
     course = exams.get_exam_course(db, id)
     topic = exams.get_exam_topic(db, id)
     first_question = exams.get_next_question(db, id, session["user_id"])
-
-    if first_question:
-        return render_template("exam.html", exam_course=course, exam_topic=topic, question=first_question, exam_id=id)
+    return render_template("exam.html", exam_course=course, exam_topic=topic, question=first_question, exam_id=id)
     
-    return "Exam complete!"
 
 @app.route("/question/<int:exam_id>/<int:id>")
 def question(exam_id, id):

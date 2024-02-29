@@ -11,6 +11,6 @@ Right answer: {{ right_answer }}
 {% if next_question %}
 <a href="/question/{{ exam_id }}/{{ next_question.id }}">Next question</a>
 {% else %}
-<a href="/">Finish exam</a>
+<a href="/exam/{{ exam_id }}">Finish exam</a>
 {% endif %}
 {% endblock %}
