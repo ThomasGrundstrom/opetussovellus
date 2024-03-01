@@ -81,3 +81,8 @@ def get_next_question(db, exam_id, user_id):
     if len(questions) != 0:
         return questions[0]
     return None
+
+def get_exam_results(db, exam_id, user_id):
+    sql = text("SELECT q.question, a.answer, r.right_answer FROM questions q, answers a, right_answers r WHERE q.exam_id=:exam_id AND a.question_id=q.id AND a.user_id=:user_id AND r.question_id=q.id")
+    result = db.session.execute(sql, {"exam_id":exam_id, "user_id":user_id})
+    return result.fetchall()

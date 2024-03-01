@@ -2,11 +2,11 @@
 {% block title %}Exam page{% endblock %}
 
 {% block content %}
+Course: {{ exam_course }}
+<br>
+<h1>Topic: {{ exam_topic }}</h1>
+<br>
 {% if question %}
-{{ exam_course }}
-<br>
-<h1>{{ exam_topic }}</h1>
-<br>
 Welcome to the exam!
 <br>
 <br>
@@ -15,6 +15,15 @@ Welcome to the exam!
 Exam complete!
 <br>
 <br>
-Good job!
+Your results:
+{% for result in results %}
+<hr>
+Question: {{ result.question }}
+<br><br>
+Your answer: {{ result.answer }}
+<br><br>
+Right answer: {{ result.right_answer }}
+<hr>
+{% endfor %}
 {% endif %}
 {% endblock %}
