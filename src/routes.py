@@ -119,7 +119,6 @@ def answer_post(exam_id):
     if session["csrf_token"] != request.form["csrf_token"]:
         abort(403)
     answer = request.form["answer"]
-    question = request.form["question"]
     question_id = request.form["question_id"]
     exams.answer_question(db, question_id, session["user_id"], answer)
     right_answer = exams.get_right_answer(db, question_id)
