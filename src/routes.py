@@ -12,18 +12,20 @@ def index():
     allexams = exams.display_exams(db)
     return render_template("index.html", exams=allexams, is_teacher=teacher)
 
-@app.route("/login",methods=["POST"])
+
+@app.route("/login", methods=["POST"])
 def login():
     username = request.form["username"]
     password = request.form["password"]
-    
+
     if users.login(db, username, password):
         session["username"] = username
         session["user_id"] = users.get_user_id(db, username)
         session["csrf_token"] = secrets.token_hex(16)
         return redirect("/")
-    
-    return render_template("index.html", errormessage = "Wrong username or password.")
+
+    return render_template("index.html", errormessage="Wrong username or password.")
+
 
 @app.route("/logout")
 def logout():
@@ -31,9 +33,11 @@ def logout():
     del session["user_id"]
     return redirect("/")
 
+
 @app.route("/register", methods=["GET"])
 def register_get():
     return render_template("register.html")
+
 
 @app.route("/register", methods=["POST"])
 def register_post():
@@ -46,19 +50,21 @@ def register_post():
         teacher = 0
 
     if password1 != password2:
-        return render_template("register.html", errormessage = "Password and password confirmation do not match.")
-    
+        return render_template("register.html", errormessage="Password and password confirmation do not match.")
+
     if users.register(db, username, password1, teacher):
         session["username"] = username
         session["user_id"] = users.get_user_id(db, username)
         session["csrf_token"] = secrets.token_hex(16)
         return redirect("/")
-    
-    return render_template("register.html", errormessage = "Username already in use.")
+
+    return render_template("register.html", errormessage="Username already in use.")
+
 
 @app.route("/new", methods=["GET"])
 def new_get():
     return render_template("new.html")
+
 
 @app.route("/new", methods=["POST"])
 def new_post():
@@ -71,12 +77,14 @@ def new_post():
         exam_id = exams.get_exam_id_by_topic(db, topic)
         session["exam"] = exam_id[0]
         return redirect("/add")
-    
-    return render_template("new.html", errormessage = "An exam with that topic already exists. Please change topic.")
+
+    return render_template("new.html", errormessage="An exam with that topic already exists. Please change topic.")
+
 
 @app.route("/add", methods=["GET"])
 def add_get():
     return render_template("add.html")
+
 
 @app.route("/add", methods=["POST"])
 def add_post():
@@ -88,6 +96,7 @@ def add_post():
     exams.add_question_to_exam(db, exam_id, question, answer)
     return redirect("/add")
 
+
 @app.route("/exam/<int:id>")
 def exam(id):
     course = exams.get_exam_course(db, id)
@@ -97,12 +106,13 @@ def exam(id):
     teacher = users.is_teacher(db)
     exam_takers = exams.get_exam_takers(db, id)
     return render_template("exam.html", exam_course=course, exam_topic=topic, question=first_question, exam_id=id, results=results, is_teacher=teacher, exam_takers=exam_takers)
-    
+
 
 @app.route("/question/<int:exam_id>/<int:id>")
 def question(exam_id, id):
     question = exams.get_question(db, id)
     return render_template("question.html", question=question, exam_id=exam_id)
+
 
 @app.route("/question/<int:exam_id>/answer", methods=["POST"])
 def answer_post(exam_id):
