@@ -86,3 +86,8 @@ def get_exam_results(db, exam_id, user_id):
     sql = text("SELECT q.question, a.answer, r.right_answer FROM questions q, answers a, right_answers r WHERE q.exam_id=:exam_id AND a.question_id=q.id AND a.user_id=:user_id AND r.question_id=q.id")
     result = db.session.execute(sql, {"exam_id":exam_id, "user_id":user_id})
     return result.fetchall()
+
+def get_exam_takers(db, exam_id):
+    sql = text("SELECT DISTINCT(u.username) FROM users u, questions q, answers a WHERE q.exam_id=:exam_id AND a.question_id=q.id AND a.user_id=u.id")
+    result = db.session.execute(sql, {"exam_id":exam_id})
+    return result.fetchall()

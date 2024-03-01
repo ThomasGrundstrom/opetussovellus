@@ -16,13 +16,22 @@ Exam complete!
 <br>
 <br>
 Your results:
-{% for result in results %}
 <hr>
+{% for result in results %}
 Question: {{ result.question }}
 <br><br>
 Your answer: {{ result.answer }}
 <br><br>
 Right answer: {{ result.right_answer }}
+<hr>
+{% endfor %}
+{% endif %}
+{% if is_teacher %}
+<br>
+This exam has been fully or partially completed by:
+<hr>
+{% for exam_taker in exam_takers %}
+{{ exam_taker.username }}
 <hr>
 {% endfor %}
 {% endif %}
