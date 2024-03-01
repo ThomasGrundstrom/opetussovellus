@@ -55,11 +55,6 @@ def get_right_answer(db, question_id):
     result = db.session.execute(sql, {"question_id":question_id})
     return result.fetchone()[0]
 
-def get_exam_id_by_question(db, question):
-    sql = text("SELECT exam_id FROM questions WHERE question=:question")
-    result = db.session.execute(sql, {"question":question})
-    return result.fetchone()[0]
-
 def answer_question(db, question_id, user_id, answer):
     sql = text("INSERT INTO answers (question_id, user_id, answer) VALUES (:question_id, :user_id, :answer)")
     db.session.execute(sql, {"question_id":question_id, "user_id":user_id, "answer":answer})
