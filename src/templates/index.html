@@ -15,9 +15,9 @@ Welcome to the study app, {{ session.username }}!
 
 <hr>
 {% for exam in exams %}
-Course: {{ exam.course }}
+<b>Course:</b> {{ exam.course }}
 <br>
-Topic: {{ exam.topic }}
+<b>Topic:</b> {{ exam.topic }}
 <br>
 <a href="/exam/{{ exam.id }}">Go to exam</a> <br>
 <hr>
