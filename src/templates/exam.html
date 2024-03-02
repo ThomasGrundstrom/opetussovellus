@@ -2,33 +2,35 @@
 {% block title %}Exam page{% endblock %}
 
 {% block content %}
-Course: {{ exam_course }}
+<b>Course:</b> {{ exam_course }}
 <br>
 <h1>Topic: {{ exam_topic }}</h1>
 <br>
 {% if question %}
-Welcome to the exam!
+<b>Welcome to the exam!</b>
 <br>
 <br>
 <a href="/question/{{ exam_id }}/{{ question.id }}">Start exam</a>
 {% else %}
-Exam complete!
+<b>Exam complete!</b>
 <br>
 <br>
-Your results:
+<b>Your results:</b>
 <hr>
 {% for result in results %}
-Question: {{ result.question }}
+<b>Question:</b> {{ result.question }}
 <br><br>
-Your answer: {{ result.answer }}
+<b>Your answer:</b> {{ result.answer }}
 <br><br>
-Right answer: {{ result.right_answer }}
+<b>Right answer:</b> {{ result.right_answer }}
 <hr>
 {% endfor %}
 {% endif %}
 {% if is_teacher %}
 <br>
-This exam has been fully or partially completed by:
+Total amount of people that have taken the exam: {{ exam_taker_count }}
+<br>
+This exam has been fully or partially completed by the following users:
 <hr>
 {% for exam_taker in exam_takers %}
 {{ exam_taker.username }}

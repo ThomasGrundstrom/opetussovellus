@@ -105,7 +105,8 @@ def exam(id):
     results = exams.get_exam_results(db, id, session["user_id"])
     teacher = users.is_teacher(db)
     exam_takers = exams.get_exam_takers(db, id)
-    return render_template("exam.html", exam_course=course, exam_topic=topic, question=first_question, exam_id=id, results=results, is_teacher=teacher, exam_takers=exam_takers)
+    exam_taker_count = len(exam_takers)
+    return render_template("exam.html", exam_course=course, exam_topic=topic, question=first_question, exam_id=id, results=results, is_teacher=teacher, exam_takers=exam_takers, exam_taker_count=exam_taker_count)
 
 
 @app.route("/question/<int:exam_id>/<int:id>")
