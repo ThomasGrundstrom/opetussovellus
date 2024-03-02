@@ -6,9 +6,9 @@
 
 <form action="/add" method="POST">
     <p>Question: <br>
-    <input type="text" name="question" required></p>
+    <textarea id="question" name="question" rows="4" cols="50" required></textarea></p>
     <p>Answer: <br>
-    <input type="text" name="answer" required></p>
+    <textarea id="answer" name="answer" rows="4" cols="50" required></textarea></p>
     <br>
     <input type="submit" value="Create question">
     <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">

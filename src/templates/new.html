@@ -6,9 +6,9 @@
 
 <form action="/new" method="POST">
     <p>Course: <br>
-    <input type="text" name="course"></p>
+    <textarea id="course" name="course" rows="4" cols="50" required></textarea></p>
     <p>Topic: <br>
-    <input type="text" name="topic"></p>
+    <textarea id="topic" name="topic" rows="4" cols="50" required></textarea></p>
     <br>
     <input type="submit" value="Create exam">
     <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
