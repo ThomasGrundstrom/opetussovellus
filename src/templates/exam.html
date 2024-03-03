@@ -32,7 +32,7 @@
     <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
 </form>
 {% endif %}
-{% if is_teacher %}
+{% if session.user_id == creator_id %}
 <br>
 Total number of people that have answers for this exam in the database: {{ exam_taker_count }}
 <br>

@@ -120,3 +120,9 @@ def delete_exam(db, exam_id):
     sql = text("DELETE FROM exams WHERE id=:exam_id")
     db.session.execute(sql, {"exam_id":exam_id})
     db.session.commit()
+
+
+def get_exam_creator(db, exam_id):
+    sql = text("SELECT creator_id FROM exams WHERE id=:exam_id")
+    result = db.session.execute(sql, {"exam_id":exam_id})
+    return result.fetchone()[0]
