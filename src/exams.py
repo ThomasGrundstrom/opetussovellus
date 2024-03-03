@@ -11,8 +11,10 @@ def add_exam(db, course, topic, user_id):
     if get_exam_id_by_topic(db, topic):
         return False
 
-    sql = text("INSERT INTO exams (course, topic, creator_id) VALUES (:course, :topic, :creator_id)")
-    db.session.execute(sql, {"course": course, "topic": topic, "creator_id": user_id})
+    sql = text(
+        "INSERT INTO exams (course, topic, creator_id) VALUES (:course, :topic, :creator_id)")
+    db.session.execute(
+        sql, {"course": course, "topic": topic, "creator_id": user_id})
     db.session.commit()
     return True
 
@@ -111,18 +113,20 @@ def remove_exam_answers(db, exam_id, user_id):
     questions = get_exam_questions(db, exam_id)
     for question in questions:
         question_id = question[0]
-        sql = text("DELETE FROM answers WHERE question_id=:question_id AND user_id=:user_id")
-        db.session.execute(sql, {"question_id":question_id, "user_id":user_id})
+        sql = text(
+            "DELETE FROM answers WHERE question_id=:question_id AND user_id=:user_id")
+        db.session.execute(
+            sql, {"question_id": question_id, "user_id": user_id})
         db.session.commit()
 
 
 def delete_exam(db, exam_id):
     sql = text("DELETE FROM exams WHERE id=:exam_id")
-    db.session.execute(sql, {"exam_id":exam_id})
+    db.session.execute(sql, {"exam_id": exam_id})
     db.session.commit()
 
 
 def get_exam_creator(db, exam_id):
     sql = text("SELECT creator_id FROM exams WHERE id=:exam_id")
-    result = db.session.execute(sql, {"exam_id":exam_id})
+    result = db.session.execute(sql, {"exam_id": exam_id})
     return result.fetchone()[0]
