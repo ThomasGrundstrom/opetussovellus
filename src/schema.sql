@@ -13,19 +13,19 @@ CREATE TABLE exams (
 
 CREATE TABLE questions (
     id SERIAL PRIMARY KEY,
-    exam_id INTEGER REFERENCES exams,
+    exam_id INTEGER REFERENCES exams ON DELETE CASCADE,
     question TEXT
 );
 
 CREATE TABLE right_answers (
     id SERIAL PRIMARY KEY,
-    question_id INTEGER REFERENCES questions,
+    question_id INTEGER REFERENCES questions ON DELETE CASCADE,
     right_answer TEXT
 );
 
 CREATE TABLE answers (
     id SERIAL PRIMARY KEY,
-    question_id INTEGER REFERENCES questions,
-    user_id INTEGER REFERENCES users,
+    question_id INTEGER REFERENCES questions ON DELETE CASCADE,
+    user_id INTEGER REFERENCES users ON DELETE CASCADE,
     answer TEXT
 );

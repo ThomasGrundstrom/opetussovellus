@@ -114,3 +114,9 @@ def remove_exam_answers(db, exam_id, user_id):
         sql = text("DELETE FROM answers WHERE question_id=:question_id AND user_id=:user_id")
         db.session.execute(sql, {"question_id":question_id, "user_id":user_id})
         db.session.commit()
+
+
+def delete_exam(db, exam_id):
+    sql = text("DELETE FROM exams WHERE id=:exam_id")
+    db.session.execute(sql, {"exam_id":exam_id})
+    db.session.commit()

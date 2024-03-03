@@ -68,8 +68,7 @@ def new_get():
 
 @app.route("/new", methods=["POST"])
 def new_post():
-    if session["csrf_token"] != request.form["csrf_token"]:
-        abort(403)
+    verify_csrf()
     course = request.form["course"]
     topic = request.form["topic"]
 
@@ -88,8 +87,7 @@ def add_get():
 
 @app.route("/add", methods=["POST"])
 def add_post():
-    if session["csrf_token"] != request.form["csrf_token"]:
-        abort(403)
+    verify_csrf()
     exam_id = session["exam"]
     question = request.form["question"]
     answer = request.form["answer"]
@@ -117,8 +115,7 @@ def question(exam_id, id):
 
 @app.route("/question/<int:exam_id>/answer", methods=["POST"])
 def answer_post(exam_id):
-    if session["csrf_token"] != request.form["csrf_token"]:
-        abort(403)
+    verify_csrf()
     answer = request.form["answer"]
     question_id = request.form["question_id"]
     exams.answer_question(db, question_id, session["user_id"], answer)
@@ -130,8 +127,7 @@ def answer_post(exam_id):
 
 @app.route("/exam/retake", methods=["POST"])
 def retake_post():
-    if session["csrf_token"] != request.form["csrf_token"]:
-        abort(403)
+    verify_csrf()
     exam_id = request.form["exam_id"]
     exams.remove_exam_answers(db, exam_id, session["user_id"])
     question_id = exams.get_exam_questions(db, exam_id)[0][0]
@@ -140,11 +136,22 @@ def retake_post():
 
 
 @app.route("/check", methods=["POST"])
-def add_check():
-    if session["csrf_token"] != request.form["csrf_token"]:
-        abort(403)
+def check():
+    verify_csrf()
     exam_id = session["exam"]
     questions = exams.get_exam_questions(db, exam_id)
     if len(questions) == 0:
         return render_template("add.html", errormessage="Please add at least one question to the exam.")
     return redirect("/")
+
+
+@app.route("/delete_empty_exam", methods=["POST"])
+def delete_empty_exam():
+    verify_csrf()
+    exam_id = session["exam"]
+    exams.delete_exam(db, exam_id)
+    return redirect("/")
+
+def verify_csrf():
+    if session["csrf_token"] != request.form["csrf_token"]:
+        abort(403)

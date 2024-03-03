@@ -1,7 +1,5 @@
-{% extends "layout.html" %}
-{% block title %}Add question page{% endblock %}
+<title>Add question page</title>
 
-{% block content %}
 <h2>Add question to exam</h2>
 
 <form action="/add" method="POST">
@@ -19,5 +17,8 @@
     <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
 </form>
 {{ errormessage }}
-
-{% endblock %}
+<br>
+<form action="/delete_empty_exam" method="POST">
+    <input type="submit" value="Back to main page">
+    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+</form>
