@@ -2,17 +2,17 @@ from sqlalchemy.sql import text
 
 
 def display_exams(db):
-    sql = text("SELECT id, course, topic FROM exams ORDER BY id DESC")
+    sql = text("SELECT id, course, topic, creator_id FROM exams ORDER BY id DESC")
     result = db.session.execute(sql)
     return result.fetchall()
 
 
-def add_exam(db, course, topic):
+def add_exam(db, course, topic, user_id):
     if get_exam_id_by_topic(db, topic):
         return False
 
-    sql = text("INSERT INTO exams (course, topic) VALUES (:course, :topic)")
-    db.session.execute(sql, {"course": course, "topic": topic})
+    sql = text("INSERT INTO exams (course, topic, creator_id) VALUES (:course, :topic, :creator_id)")
+    db.session.execute(sql, {"course": course, "topic": topic, "creator_id": user_id})
     db.session.commit()
     return True
 

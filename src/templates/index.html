@@ -20,6 +20,14 @@ Welcome to the study app, {{ session.username }}!
 <b>Topic:</b> {{ exam.topic }}
 <br>
 <a href="/exam/{{ exam.id }}">Go to exam</a> <br>
+{% if exam.creator_id == session.user_id %}
+<br>
+<form action="/delete" method="POST">
+    <input type="submit" value="Delete exam">
+    <input type="hidden" name="exam_id" value="{{ exam.id }}">
+    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+</form>
+{% endif %}
 <hr>
 {% endfor %}
 

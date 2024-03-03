@@ -14,9 +14,9 @@
 <br>
 <form action="check" method="POST">
     <input type="submit" value="Submit exam">
+    {{ errormessage }}
     <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
 </form>
-{{ errormessage }}
 <br>
 <form action="/delete_empty_exam" method="POST">
     <input type="submit" value="Back to main page">

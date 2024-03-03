@@ -8,7 +8,8 @@ CREATE TABLE users (
 CREATE TABLE exams (
     id SERIAL PRIMARY KEY,
     course TEXT,
-    topic TEXT
+    topic TEXT,
+    creator_id INTEGER REFERENCES users ON DELETE CASCADE
 );
 
 CREATE TABLE questions (

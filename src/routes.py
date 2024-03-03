@@ -71,8 +71,9 @@ def new_post():
     verify_csrf()
     course = request.form["course"]
     topic = request.form["topic"]
+    user_id = session["user_id"]
 
-    if exams.add_exam(db, course, topic):
+    if exams.add_exam(db, course, topic, user_id):
         exam_id = exams.get_exam_id_by_topic(db, topic)
         session["exam"] = exam_id[0]
         return redirect("/add")
@@ -151,6 +152,15 @@ def delete_empty_exam():
     exam_id = session["exam"]
     exams.delete_exam(db, exam_id)
     return redirect("/")
+
+
+@app.route("/delete", methods=["POST"])
+def delete_post():
+    verify_csrf()
+    exam_id = request.form["exam_id"]
+    exams.delete_exam(db, exam_id)
+    return redirect("/")
+
 
 def verify_csrf():
     if session["csrf_token"] != request.form["csrf_token"]:
