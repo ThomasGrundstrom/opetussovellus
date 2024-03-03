@@ -137,3 +137,14 @@ def retake_post():
     question_id = exams.get_exam_questions(db, exam_id)[0][0]
     address = f"/question/{exam_id}/{question_id}"
     return redirect(address)
+
+
+@app.route("/check", methods=["POST"])
+def add_check():
+    if session["csrf_token"] != request.form["csrf_token"]:
+        abort(403)
+    exam_id = session["exam"]
+    questions = exams.get_exam_questions(db, exam_id)
+    if len(questions) == 0:
+        return render_template("add.html", errormessage="Please add at least one question to the exam.")
+    return redirect("/")

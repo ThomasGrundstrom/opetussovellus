@@ -14,6 +14,10 @@
     <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
 </form>
 <br>
-<input type="button" onclick="location.href='/'" value="Submit exam">
+<form action="check" method="POST">
+    <input type="submit" value="Submit exam">
+    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+</form>
+{{ errormessage }}
 
 {% endblock %}
