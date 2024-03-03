@@ -26,7 +26,7 @@ opettajat voivat luoda yksinkertaisia tenttejä tukeakseen opiskelijoiden oppimi
 
 #### Jos hankit rekisteröitymisen yhteydessä opettajan oikeudet:
 
-- Voit käyttää samoja toiminnallisuuksia kuin normaalitkin käyttäjät.
+- Voit käyttää samoja toiminnallisuuksia kuin normaalit käyttäjät.
 - Voit luoda tenttejä etusivulla klikkaamalla "New exam"-tekstiä.
 - Tenttiin voi lisätä kysymys-mallivastaus-pareja.
 - Voit poistaa etusivulta itse luomiasi tenttejä klikkaamalla "Delete exam"-painiketta.
