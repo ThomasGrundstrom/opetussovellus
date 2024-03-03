@@ -15,7 +15,7 @@
 <b>Exam complete!</b>
 <br>
 <br>
-<b>Your results:</b>
+<b>Your most recent results:</b>
 <hr>
 {% for result in results %}
 <b>Question:</b> {{ result.question }}
@@ -25,12 +25,17 @@
 <b>Right answer:</b> {{ result.right_answer }}
 <hr>
 {% endfor %}
+<form action="retake" method="POST">
+    <input type="submit" value="Retake exam">
+    <input type="hidden" name="exam_id" value="{{ exam_id }}">
+    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+</form>
 {% endif %}
 {% if is_teacher %}
 <br>
-Total amount of people that have taken the exam: {{ exam_taker_count }}
+Total number of people that have answers for this exam in the database: {{ exam_taker_count }}
 <br>
-This exam has been fully or partially completed by the following users:
+The following users have answers in the database:
 <hr>
 {% for exam_taker in exam_takers %}
 {{ exam_taker.username }}

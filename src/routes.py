@@ -126,3 +126,14 @@ def answer_post(exam_id):
     next_question = exams.get_next_question(db, exam_id, session["user_id"])
 
     return render_template("answer.html", answer=answer, right_answer=right_answer, next_question=next_question, exam_id=exam_id)
+
+
+@app.route("/exam/retake", methods=["POST"])
+def retake_post():
+    if session["csrf_token"] != request.form["csrf_token"]:
+        abort(403)
+    exam_id = request.form["exam_id"]
+    exams.remove_exam_answers(db, exam_id, session["user_id"])
+    question_id = exams.get_exam_questions(db, exam_id)[0][0]
+    address = f"/question/{exam_id}/{question_id}"
+    return redirect(address)

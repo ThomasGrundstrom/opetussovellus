@@ -105,3 +105,12 @@ def get_exam_takers(db, exam_id):
     sql = text("SELECT DISTINCT(u.username) FROM users u, questions q, answers a WHERE q.exam_id=:exam_id AND a.question_id=q.id AND a.user_id=u.id")
     result = db.session.execute(sql, {"exam_id": exam_id})
     return result.fetchall()
+
+
+def remove_exam_answers(db, exam_id, user_id):
+    questions = get_exam_questions(db, exam_id)
+    for question in questions:
+        question_id = question[0]
+        sql = text("DELETE FROM answers WHERE question_id=:question_id AND user_id=:user_id")
+        db.session.execute(sql, {"question_id":question_id, "user_id":user_id})
+        db.session.commit()
